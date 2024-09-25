@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "coordints.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ClientEntityManagerMixin",
+    "PlayerManagerMixin",
+    "ServerEntityManagerListenerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}

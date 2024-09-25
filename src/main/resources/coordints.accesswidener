@@ -1,0 +1,3 @@
+accessWidener v2 named
+accessible class net/minecraft/world/entity/ClientEntityManager$Listener
+accessible class net/minecraft/server/world/ServerEntityManager$Listener
