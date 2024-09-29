@@ -1,6 +1,5 @@
 package coordints;
 
-import coordints.event.client.ModClientEvents;
 import net.fabricmc.api.ClientModInitializer;
 
 public class CoordintsClient implements ClientModInitializer {

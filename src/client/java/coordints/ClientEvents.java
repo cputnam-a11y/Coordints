@@ -6,7 +6,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -22,9 +21,7 @@ public class ClientEvents {
                 case REDACT -> event.setMessage(Utils.redactCoords(message));
                 case RANDOMISE -> event.setMessage(Utils.redactCoords(message, s -> String.valueOf(Utils.RANDOM.nextInt())));
                 case BLOCK -> {
-                    Optional.ofNullable(MinecraftClient.getInstance().player).ifPresent(player -> {
-                        player.sendMessage(Text.translatable("messages.coordints.blocked").formatted(Formatting.RED), true);
-                    });
+                    Optional.ofNullable(MinecraftClient.getInstance().player).ifPresent(player -> player.sendMessage(Text.translatable("messages.coordints.blocked").formatted(Formatting.RED), true));
                     event.setCanceled(true);
                 }
             }

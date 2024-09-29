@@ -4,8 +4,6 @@ import com.electronwill.nightconfig.core.EnumGetMethod;
 import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.fml.config.IConfigSpec;
-//import net.minecraftforge.common.ForgeConfigSpec;
-//import net.minecraftforge.fml.config.IConfigSpec;
 import net.neoforged.fml.config.ModConfig;
 
 import java.util.Arrays;
