@@ -23,6 +23,11 @@ public class Events {
                         break;
                     }
                 }
+                if (inBlacklistedArea) {
+                    Coordints.LOGGER.info("Player In Blacklisted Area");
+                } else {
+                    Coordints.LOGGER.info("Player Not In Blacklisted Area");
+                }
             }
         }
     }

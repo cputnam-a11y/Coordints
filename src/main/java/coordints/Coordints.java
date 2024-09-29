@@ -2,6 +2,7 @@ package coordints;
 
 import coordints.event.ModEvents;
 import fuzs.forgeconfigapiport.fabric.api.forge.v4.ForgeConfigRegistry;
+import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeConfigRegistry;
 import fuzs.forgeconfigapiport.fabric.api.neoforge.v4.NeoForgeModConfigEvents;
 import net.fabricmc.api.ModInitializer;
 import net.neoforged.fml.config.ModConfig;
@@ -17,7 +18,8 @@ public class Coordints implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ForgeConfigRegistry.INSTANCE.register("coordints", ModConfig.Type.COMMON, Config.SPEC);
+
+		NeoForgeConfigRegistry.INSTANCE.register("coordints", ModConfig.Type.COMMON, Config.SPEC);
 		NeoForgeModConfigEvents.loading("coordints").register(Config::onLoad);
 		NeoForgeModConfigEvents.reloading("coordints").register(Config::onLoad);
 		Events.init();

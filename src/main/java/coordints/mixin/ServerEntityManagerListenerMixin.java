@@ -3,6 +3,7 @@ package coordints.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import com.llamalad7.mixinextras.sugar.ref.LocalLongRef;
 import coordints.event.ModEvents;
 import net.minecraft.entity.Entity;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerEntityManager.Listener.class)
@@ -32,9 +34,14 @@ public abstract class ServerEntityManagerListenerMixin implements EntityChangeLi
         original.call(instance, entity);
         oldPosRef.set(sectionPos);
     }
+    @ModifyVariable(method = "updateEntityPosition", at = @At(value = "STORE"), ordinal = 0)
+    private long getCompareResult(long value, @Share("hasChanged") LocalBooleanRef hasChangedRef) {
+        hasChangedRef.set(value != this.sectionPos);
+        return value;
+    }
     @Inject(method = "updateEntityPosition", at = @At("TAIL"))
-    private <T extends EntityLike> void onEntityEnteringSection(CallbackInfo ci, @Share("oldPos") LocalLongRef oldPosRef) {
-        if (realEntity != null) {
+    private <T extends EntityLike> void onEntityEnteringSection(CallbackInfo ci, @Share("oldPos") LocalLongRef oldPosRef, @Share("hasChanged") LocalBooleanRef hasChangedRef) {
+        if (realEntity != null && hasChangedRef.get()) {
             ModEvents.ENTERING_SECTION.invoker().onEntityEnteringSection(new ModEvents.EntityEnteringSectionContext(realEntity, oldPosRef.get(), sectionPos));
         }
     }
